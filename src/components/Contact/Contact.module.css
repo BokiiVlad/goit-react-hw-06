@@ -12,7 +12,7 @@
   display: flex;
 }
 .listText {
-  margin-left: 10px;
+  margin: 0 0 0 10px;
 }
 .firstField {
   margin-bottom: 10px;

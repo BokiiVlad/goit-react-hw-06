@@ -2,10 +2,14 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import css from "./ContactForm.module.css";
 import { nanoid } from "nanoid";
 import * as Yup from "yup";
+import { addContact } from "../../redux/contactsSlice";
+import { useDispatch } from "react-redux";
 
 export default function ContactForm() {
   const nameId = nanoid();
   const numberId = nanoid();
+
+  const dispatch = useDispatch();
 
   const FeedbackSchema = Yup.object().shape({
     name: Yup.string()
@@ -18,8 +22,27 @@ export default function ContactForm() {
       .required("This field is required"),
   });
 
+  const initialValuesForm = {
+    name: "",
+    number: "",
+  };
+
+  const hundleSubmit = (value, actions) => {
+    const newContact = {
+      id: nanoid(),
+      name: value.name,
+      number: value.number,
+    };
+    dispatch(addContact(newContact));
+    actions.resetForm();
+  };
+
   return (
-    <Formik initialValues={{}} onSubmit={{}} validationSchema={FeedbackSchema}>
+    <Formik
+      initialValues={initialValuesForm}
+      onSubmit={hundleSubmit}
+      validationSchema={FeedbackSchema}
+    >
       <Form className={css.formField}>
         <div className={css.formPiece}>
           <label htmlFor={nameId}>Name</label>

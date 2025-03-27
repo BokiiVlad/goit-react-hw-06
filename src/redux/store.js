@@ -4,8 +4,9 @@ import filtersReducer from "./filtersSlice"
 
 export const store = configureStore({
     reducer: {
-        filter: filtersReducer,
+        filters: filtersReducer,
         contacts: contactsReducer
     }
 });
 
+export default store;
